@@ -20,6 +20,9 @@ public class DegreeAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Memory mem) {
+        int num = input.askInt("Введите число ");
+        int degree = input.askInt("Введите степень ");
+        out.println(Math.pow(num, degree));
         return true;
     }
 }

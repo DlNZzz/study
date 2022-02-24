@@ -5,6 +5,8 @@ import ru.dinz.Memory;
 import ru.dinz.Output;
 import ru.dinz.UserAction;
 
+import java.util.stream.IntStream;
+
 public class FactorialAction implements UserAction {
 
     private final Output out;
@@ -20,7 +22,20 @@ public class FactorialAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Memory mem) {
-
+        int num = input.askInt("Введите натуральное число ");
+        boolean run = true;
+        int answer = 1;
+        while (run) {
+            if (num >= 0) {
+                run = false;
+            } else {
+                num = input.askInt("Введите натуральное число ");
+            }
+        }
+        for (int i = 1; i <= num; i++) {
+            answer *= i;
+        }
+        out.println(answer);
         return true;
     }
 }
