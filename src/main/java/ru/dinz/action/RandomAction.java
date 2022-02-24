@@ -5,6 +5,9 @@ import ru.dinz.Memory;
 import ru.dinz.Output;
 import ru.dinz.UserAction;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class RandomAction implements UserAction {
 
     private final Output out;

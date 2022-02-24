@@ -21,33 +21,36 @@ public class ArithmeticAction implements UserAction {
     @Override
     public boolean execute(Input input, Memory mem) {
         boolean run = true;
+        int numOne = input.askInt("Введите первую цифру ");
+        String sign = input.askStr("Введите знак ");
+        int numTwo = input.askInt("Введите вторую цифру ");
         while (run) {
-            int numOne = input.askInt("Введите первую цифру ");
-            String sign = input.askStr("Введите знак ");
-            int numTwo = input.askInt("Введите вторую цифру ");
+            double answer = 0;
             switch (sign) {
                 case "+":
-                    out.println(numOne + numTwo);
+                    answer = numOne + numTwo;
                     run = false;
                     break;
                 case "-":
-                    out.println(numOne - numTwo);
+                    answer = numOne - numTwo;
                     run = false;
                     break;
                 case "*":
-                    out.println(numOne * numTwo);
+                    answer = numOne * numTwo;
                     run = false;
                     break;
                 case "/":
                     if (numTwo == 0) {
                         out.println("Вы ввели неверный второй аргумент");
                     } else {
-                        out.println(numOne / numTwo);
+                        answer = (double) numOne / numTwo;
                     }
                     break;
                 default:
+                    sign = input.askStr("Введите знак ");
                     continue;
             }
+            out.println(answer);
         }
         return true;
     }

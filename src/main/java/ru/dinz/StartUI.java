@@ -26,6 +26,11 @@ public class StartUI {
             }
             UserAction action = listAction.get(select);
             run = action.execute(input, mem);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

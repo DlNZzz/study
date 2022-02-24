@@ -21,6 +21,9 @@ public class MemoryAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Memory mem) {
+        int sz = input.askInt("Введите номер ячейки 0 .. " + mem.size());
+        int s = input.askInt("Введите число которое хотитете сохранить");
+        mem.add(sz, s);
         return true;
     }
 }
