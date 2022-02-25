@@ -5,8 +5,7 @@ import ru.dinz.Memory;
 import ru.dinz.Output;
 import ru.dinz.UserAction;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.Random;
 
 public class RandomAction implements UserAction {
 
@@ -24,6 +23,10 @@ public class RandomAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Memory mem) {
+        int min = input.askInt("Введите первое число диапазона от ");
+        int max = input.askInt("Введите второе число диапазона до ");
+        max -= min;
+        out.println((Math.random() * max) + min);
         return true;
     }
 }

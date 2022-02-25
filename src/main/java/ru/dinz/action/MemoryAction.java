@@ -21,9 +21,17 @@ public class MemoryAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Memory mem) {
-        int sz = input.askInt("Введите номер ячейки 0 .. " + mem.size());
-        int s = input.askInt("Введите число которое хотитете сохранить");
-        mem.add(sz, s);
+        double s = input.askDouble("Введите число которое хотитете сохранить ", mem);
+        String askMem;
+        String[] arrayMem;
+        do {
+            askMem = input.askStr("Введите ячейку mem1, mem2, mem3, mem4 ");
+            arrayMem = askMem.split("mem");
+            while (arrayMem.length != 2) {
+                askMem = input.askStr("Введите ячейку mem1, mem2, mem3, mem4 ");
+                arrayMem = askMem.split("mem");
+            }
+        } while (!mem.add(Integer.parseInt(arrayMem[1]) - 1, s));
         return true;
     }
 }

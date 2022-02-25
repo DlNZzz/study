@@ -2,25 +2,30 @@ package ru.dinz;
 
 public class MemoryCalculator implements Memory {
 
-    private int[] a;
+    private double[] array;
 
     @Override
     public void init() {
-        a = new int[4];
+        array = new double[4];
     }
 
     @Override
-    public void add(int pos, int el) {
-
+    public boolean add(int pos, double el) {
+        boolean isAdd = false;
+        if (pos >= 0 && size() >= pos) {
+            array[pos] = el;
+            isAdd = true;
+        }
+        return isAdd;
     }
 
     @Override
-    public int get(int pos) {
-        return -1;
+    public double get(int pos) {
+        return array[pos];
     }
 
     @Override
-    public int size() {
-        return a.length;
+    public double size() {
+        return array.length;
     }
 }

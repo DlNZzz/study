@@ -26,26 +26,16 @@ public class TrigonometryAction implements UserAction {
         double radians = Math.toRadians(degrees);
         double answer = 0;
         while (run) {
+            run = false;
             switch (question) {
-                case "sin":
-                    answer = Math.sin(radians);
-                    run = false;
-                    break;
-                case "cos":
-                    answer = Math.cos(radians);
-                    run = false;
-                    break;
-                case "tg":
-                    answer = Math.tan(radians);
-                    run = false;
-                    break;
-                case "ctg":
-                    answer = 1 / Math.tan(radians);
-                    run = false;
-                    break;
-                default:
+                case "sin" -> answer = Math.sin(radians);
+                case "cos" -> answer = Math.cos(radians);
+                case "tg" -> answer = Math.tan(radians);
+                case "ctg" -> answer = 1 / Math.tan(radians);
+                default -> {
                     question = input.askStr("sin, cos, tg, ctg? ");
-                    continue;
+                    run = true;
+                }
             }
         }
         if (answer > 5443746451065122L) {
