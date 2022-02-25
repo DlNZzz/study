@@ -5,8 +5,6 @@ import ru.dinz.Memory;
 import ru.dinz.Output;
 import ru.dinz.UserAction;
 
-import java.util.stream.IntStream;
-
 public class FactorialAction implements UserAction {
 
     private final Output out;

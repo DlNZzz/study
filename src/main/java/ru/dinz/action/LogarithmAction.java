@@ -20,6 +20,8 @@ public class LogarithmAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Memory mem) {
+        int num = input.askInt("Введите число ");
+        out.println(Math.log(num));
         return true;
     }
 }
