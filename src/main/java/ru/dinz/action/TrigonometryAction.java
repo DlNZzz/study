@@ -39,7 +39,7 @@ public class TrigonometryAction implements UserAction {
             }
         }
         if (answer > 5443746451065122L) {
-            out.println("Infinity");
+            out.println("Не существует");
         } else {
             out.println(String.format("%.4f", answer));
         }

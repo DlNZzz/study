@@ -20,8 +20,4 @@ public class ConsoleInput implements Input {
     public double askDouble(String question, Memory memory) {
         return Double.parseDouble(askStr(question));
     }
-
-    public static void main(String[] args) {
-        System.out.println(Double.parseDouble("2.23"));
-    }
 }

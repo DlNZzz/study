@@ -34,6 +34,8 @@ public class ArithmeticAction implements UserAction {
                 case "/" -> {
                     if (numTwo == 0) {
                         out.println("Вы ввели неверный второй аргумент");
+                        numTwo = input.askDouble("Введите вторую цифру ", mem);
+                        run = true;
                     } else {
                         answer = numOne / numTwo;
                     }
@@ -43,7 +45,6 @@ public class ArithmeticAction implements UserAction {
                     run = true;
                 }
             }
-
         }
         out.println(answer);
         return true;
