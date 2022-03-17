@@ -15,9 +15,4 @@ public class ConsoleInput implements Input {
     public int askInt(String question) {
         return Integer.parseInt(askStr(question));
     }
-
-    @Override
-    public double askDouble(String question, Memory memory) {
-        return Double.parseDouble(askStr(question));
-    }
 }

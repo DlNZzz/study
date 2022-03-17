@@ -1,11 +1,12 @@
 package ru.dinz;
 
+import java.util.List;
+
 public interface Memory {
+
     void init();
 
-    boolean add(int pos, double el);
+    void init(List<List<Integer>> list);
 
-    double get(int pos);
-
-    double size();
+    List<List<Integer>> getList();
 }
