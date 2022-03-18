@@ -4,11 +4,10 @@ import ru.dinz.Input;
 import ru.dinz.Memory;
 import ru.dinz.study.sort.MergeSort;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ColumnMergeSort implements MergeSort {
+public class ColumnMergeSort extends MergeSort {
     @Override
     public void execute(Input input, Memory mem) {
         List<List<Integer>> lists = mem.getList();

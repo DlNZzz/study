@@ -1,0 +1,1788 @@
+Index: src/main/java/ru/dinz/action/LogarithmAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/LogarithmAction.java b/src/main/java/ru/dinz/action/LogarithmAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/LogarithmAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,27 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class LogarithmAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public LogarithmAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Натуральный логарифм";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        int num = input.askInt("Введите число ");
+-        out.println(Math.log(num));
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/MemoryAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/MemoryAction.java b/src/main/java/ru/dinz/action/MemoryAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/MemoryAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,37 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class MemoryAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public MemoryAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Сохранить введённое значение в одну из четырёх\n" +
+-                "ячеек памяти";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        double s = input.askDouble("Введите число которое хотитете сохранить ", mem);
+-        String askMem;
+-        String[] arrayMem;
+-        do {
+-            askMem = input.askStr("Введите ячейку mem1, mem2, mem3, mem4 ");
+-            arrayMem = askMem.split("mem");
+-            while (arrayMem.length != 2) {
+-                askMem = input.askStr("Введите ячейку mem1, mem2, mem3, mem4 ");
+-                arrayMem = askMem.split("mem");
+-            }
+-        } while (!mem.add(Integer.parseInt(arrayMem[1]) - 1, s));
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/NOCDEAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/NOCDEAction.java b/src/main/java/ru/dinz/action/NOCDEAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/NOCDEAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,37 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class NOCDEAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public NOCDEAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "НОК и НОД двух чисел";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        int numOne = input.askInt("Введите первое число ");
+-        int numTwo = input.askInt("Введите второе число ");
+-        out.println(gcd(numOne, numTwo));
+-        out.println(lcm(numOne, numTwo));
+-        return true;
+-    }
+-
+-    private int gcd(int a, int b) {
+-        return b == 0 ? a : gcd(b, a % b);
+-    }
+-
+-    private int lcm(int a, int b) {
+-        return a / gcd(a, b) * b;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/ArithmeticAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/ArithmeticAction.java b/src/main/java/ru/dinz/action/ArithmeticAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/ArithmeticAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,52 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class ArithmeticAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public ArithmeticAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Арифметические вычисления";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        boolean run = true;
+-        double numOne = input.askDouble("Введите первую цифру ", mem);
+-        String sign = input.askStr("Введите знак ");
+-        double numTwo = input.askDouble("Введите вторую цифру ", mem);
+-        double answer = 0;
+-        while (run) {
+-            run = false;
+-            switch (sign) {
+-                case "+" -> answer = numOne + numTwo;
+-                case "-" -> answer = numOne - numTwo;
+-                case "*" -> answer = numOne * numTwo;
+-                case "/" -> {
+-                    if (numTwo == 0) {
+-                        out.println("Вы ввели неверный второй аргумент");
+-                        numTwo = input.askDouble("Введите вторую цифру ", mem);
+-                        run = true;
+-                    } else {
+-                        answer = numOne / numTwo;
+-                    }
+-                }
+-                default -> {
+-                    sign = input.askStr("Введите знак ");
+-                    run = true;
+-                }
+-            }
+-        }
+-        out.println(answer);
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/ExitAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/ExitAction.java b/src/main/java/ru/dinz/action/ExitAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/ExitAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,19 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class ExitAction implements UserAction {
+-
+-    @Override
+-    public String name() {
+-        return "Выход";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        return false;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/ConversionAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/ConversionAction.java b/src/main/java/ru/dinz/action/ConversionAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/ConversionAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,42 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class ConversionAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public ConversionAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Конвертация числа из заданной \n" +
+-                "системы счисления в другую";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        String num = input.askStr("Введите цифру ");
+-        int numTwo = input.askInt("Введите основание ");
+-        int numThree = input.askInt("Введите новую систему счисления ");
+-        int nsTen = Integer.parseInt(num, numTwo);
+-        StringBuilder str = new StringBuilder();
+-        while (nsTen > 0) {
+-            int res = nsTen % numThree;
+-            if (res >= 10) {
+-                res += 55;
+-                str.insert(0, ((char) res));
+-            } else {
+-                str.insert(0, (res));
+-            }
+-            nsTen = nsTen / numThree;
+-        }
+-        out.println(str);
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/TrigonometryAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/TrigonometryAction.java b/src/main/java/ru/dinz/action/TrigonometryAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/TrigonometryAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,48 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class TrigonometryAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public TrigonometryAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Тригонометрические операции";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        boolean run = true;
+-        String question = input.askStr("sin, cos, tg, ctg? ");
+-        int degrees = input.askInt("Введите угол в градусах ");
+-        double radians = Math.toRadians(degrees);
+-        double answer = 0;
+-        while (run) {
+-            run = false;
+-            switch (question) {
+-                case "sin" -> answer = Math.sin(radians);
+-                case "cos" -> answer = Math.cos(radians);
+-                case "tg" -> answer = Math.tan(radians);
+-                case "ctg" -> answer = 1 / Math.tan(radians);
+-                default -> {
+-                    question = input.askStr("sin, cos, tg, ctg? ");
+-                    run = true;
+-                }
+-            }
+-        }
+-        if (answer > 5443746451065122L) {
+-            out.println("Не существует");
+-        } else {
+-            out.println(String.format("%.4f", answer));
+-        }
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/MemoryCalculator.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/MemoryCalculator.java b/src/main/java/ru/dinz/MemoryCalculator.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/MemoryCalculator.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,31 +0,0 @@
+-package ru.dinz;
+-
+-public class MemoryCalculator implements Memory {
+-
+-    private double[] array;
+-
+-    @Override
+-    public void init() {
+-        array = new double[4];
+-    }
+-
+-    @Override
+-    public boolean add(int pos, double el) {
+-        boolean isAdd = false;
+-        if (pos >= 0 && size() >= pos) {
+-            array[pos] = el;
+-            isAdd = true;
+-        }
+-        return isAdd;
+-    }
+-
+-    @Override
+-    public double get(int pos) {
+-        return array[pos];
+-    }
+-
+-    @Override
+-    public double size() {
+-        return array.length;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/SquareAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/SquareAction.java b/src/main/java/ru/dinz/action/SquareAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/SquareAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,41 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class SquareAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public SquareAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Площадь правильного n-угольника по заданной стороне";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        int n = input.askInt("Введите кол-во сторон ");
+-        int a = input.askInt("Введите длину стороны ");
+-        double square = 0;
+-        while (n <= 0 || a <= 0) {
+-            if (n <= 0) {
+-                n = input.askInt("Введите кол-во сторон ");
+-            }
+-            if (a <= 0) {
+-                a = input.askInt("Введите длину стороны ");
+-            }
+-        }
+-        square = (n * Math.pow(a, 2)) / (4 * Math.tan(Math.toRadians((double) 180 / n)));
+-        if (square % 1 > 0.999999) {
+-            square = (int) square + 1;
+-        }
+-        out.println(square);
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/UserAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/UserAction.java b/src/main/java/ru/dinz/UserAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/UserAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,7 +0,0 @@
+-package ru.dinz;
+-
+-public interface UserAction {
+-    String name();
+-
+-    boolean execute(Input input, Memory mem);
+-}
+Index: src/main/java/ru/dinz/StartUI.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/StartUI.java b/src/main/java/ru/dinz/StartUI.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/StartUI.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,69 +0,0 @@
+-package ru.dinz;
+-
+-import ru.dinz.action.*;
+-
+-import java.util.List;
+-
+-public class StartUI {
+-    private Output out;
+-
+-    public StartUI() {
+-        this.out = new ConsoleOutput();
+-    }
+-
+-    public StartUI(Output out) {
+-        this.out = out;
+-    }
+-
+-    public void init(Input input, Memory mem, List<UserAction> listAction) {
+-        boolean run = true;
+-        while (run) {
+-            this.showMenu(listAction);
+-            int select = input.askInt("Выбор: ");
+-            if (select < 0 || select >= listAction.size()) {
+-                out.println("Ввод должен быть в диапазоне: 0 .. " + (listAction.size() - 1));
+-                continue;
+-            }
+-            UserAction action = listAction.get(select);
+-            run = action.execute(input, mem);
+-            try {
+-                Thread.sleep(1000);
+-            } catch (InterruptedException e) {
+-                e.printStackTrace();
+-            }
+-        }
+-    }
+-
+-    private void showMenu(List<UserAction> listAction) {
+-        out.println("Калькулятор.");
+-        for (int index = 0; index < listAction.size(); index++) {
+-            out.println(index + ". " + listAction.get(index).name());
+-        }
+-    }
+-
+-    public static void main(String[] args) {
+-        Input input = new ValidateInput(
+-                new ConsoleOutput(),
+-                new ConsoleInput()
+-        );
+-        Output output = new ConsoleOutput();
+-        Memory calculator = new MemoryCalculator();
+-        calculator.init();
+-        List<UserAction> actions = List.of(
+-                new ArithmeticAction(output),
+-                new TrigonometryAction(output),
+-                new LogicalAction(output),
+-                new DegreeAction(output),
+-                new FactorialAction(output),
+-                new LogarithmAction(output),
+-                new NOCDEAction(output),
+-                new ConversionAction(output),
+-                new SquareAction(output),
+-                new EquationAction(output),
+-                new RandomAction(output),
+-                new MemoryAction(output),
+-                new ExitAction()
+-        );
+-        new StartUI().init(input, calculator, actions);
+-    }
+-}
+Index: src/main/java/ru/dinz/action/EquationAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/EquationAction.java b/src/main/java/ru/dinz/action/EquationAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/EquationAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,50 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class EquationAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public EquationAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Корни квадратного уравнения по заданным коэффициентам";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        int a, b, c;
+-        a = input.askInt("Введите первое число ");
+-        b = input.askInt("Введите второе число ");
+-        c = input.askInt("Введите третье число ");
+-        if (a == 0) {
+-            if (b != 0) {
+-                out.println("x1 = " + (-c / b));
+-            } else {
+-                out.println("корней нет");
+-            }
+-        } else {
+-            int d = b * b - 4 * a * c;
+-            if (d < 0) {
+-                out.println("корней нет");
+-            } else {
+-                double x1, x2;
+-                x1 = (-b + Math.sqrt(d)) / (2 * a);
+-                if (d == 0) {
+-                    out.println("Корни одинаковые x1 = " + x1);
+-                } else {
+-                    x2 = (-b - Math.sqrt(d)) / (2 * a);
+-                    out.println("x1 = " + x1 + "\nx2 = " + x2);
+-                }
+-            }
+-        }
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/FactorialAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/FactorialAction.java b/src/main/java/ru/dinz/action/FactorialAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/FactorialAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,39 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class FactorialAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public FactorialAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Факториал";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        int num = input.askInt("Введите натуральное число ");
+-        boolean run = true;
+-        int answer = 1;
+-        while (run) {
+-            if (num >= 0) {
+-                run = false;
+-            } else {
+-                num = input.askInt("Введите натуральное число ");
+-            }
+-        }
+-        for (int i = 1; i <= num; i++) {
+-            answer *= i;
+-        }
+-        out.println(answer);
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/DegreeAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/DegreeAction.java b/src/main/java/ru/dinz/action/DegreeAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/DegreeAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,28 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class DegreeAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public DegreeAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Степень числа";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        int num = input.askInt("Введите число ");
+-        int degree = input.askInt("Введите степень ");
+-        out.println(Math.pow(num, degree));
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/RandomAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/RandomAction.java b/src/main/java/ru/dinz/action/RandomAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/RandomAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,32 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-import java.util.Random;
+-
+-public class RandomAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public RandomAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Сгенерировать псевдослучайное число в заданном \n" +
+-                "диапазоне";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        int min = input.askInt("Введите первое число диапазона от ");
+-        int max = input.askInt("Введите второе число диапазона до ");
+-        max -= min;
+-        out.println((Math.random() * max) + min);
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/action/LogicalAction.java
+===================================================================
+diff --git a/src/main/java/ru/dinz/action/LogicalAction.java b/src/main/java/ru/dinz/action/LogicalAction.java
+deleted file mode 100644
+--- a/src/main/java/ru/dinz/action/LogicalAction.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ /dev/null	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
+@@ -1,47 +0,0 @@
+-package ru.dinz.action;
+-
+-import ru.dinz.Input;
+-import ru.dinz.Memory;
+-import ru.dinz.Output;
+-import ru.dinz.UserAction;
+-
+-public class LogicalAction implements UserAction {
+-
+-    private final Output out;
+-
+-    public LogicalAction(Output out) {
+-        this.out = out;
+-    }
+-
+-    @Override
+-    public String name() {
+-        return "Побитовые логические вычисления";
+-    }
+-
+-    @Override
+-    public boolean execute(Input input, Memory mem) {
+-        boolean run = true;
+-        int numOne = input.askInt("Введите первую цифру ");
+-        String sign = input.askStr("Введите оперцию 1. И, 2. ИЛИ, 3. НЕ, 4. ИСКЛЮЧАЮЩЕЕ ИЛИ");
+-        int numTwo = 0;
+-        if (!"3".equals(sign)) {
+-            numTwo = input.askInt("Введите вторую цифру ");
+-        }
+-        int answer = 0;
+-        while (run) {
+-            run = false;
+-            switch (sign) {
+-                case "1" -> answer = numOne & numTwo;
+-                case "2" -> answer = numOne | numTwo;
+-                case "3" -> answer = ~numOne;
+-                case "4" -> answer = numOne ^ numTwo;
+-                default -> {
+-                    sign = input.askStr("Введите оперцию 1. И, 2. ИЛИ, 3. НЕ, 4. ИСКЛЮЧАЮЩЕЕ ИЛИ");
+-                    run = true;
+-                }
+-            }
+-        }
+-        out.println(answer);
+-        return true;
+-    }
+-}
+Index: src/main/java/ru/dinz/study/sort/BubbleSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/BubbleSort.java b/src/main/java/ru/dinz/study/sort/BubbleSort.java
+new file mode 100644
+--- /dev/null	(date 1647553292147)
++++ b/src/main/java/ru/dinz/study/sort/BubbleSort.java	(date 1647553292147)
+@@ -0,0 +1,26 @@
++package ru.dinz.study.sort;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++
++public abstract class BubbleSort {
++
++    public abstract void execute(Input input, Memory mem);
++
++    static void name() {
++        System.out.println("BubbleSort");
++    }
++
++    public static int[] bubbleSort(int[] array) {
++        for (int i = array.length - 1 ; i > 0 ; i--) {
++            for (int j = 0 ; j < i ; j++) {
++                if (array[j] > array[j + 1]) {
++                    int tmp = array[j];
++                    array[j] = array[j + 1];
++                    array[j + 1] = tmp;
++                }
++            }
++        }
++        return array;
++    }
++}
+Index: src/main/java/ru/dinz/study/sort/QuickSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/QuickSort.java b/src/main/java/ru/dinz/study/sort/QuickSort.java
+new file mode 100644
+--- /dev/null	(date 1646997202025)
++++ b/src/main/java/ru/dinz/study/sort/QuickSort.java	(date 1646997202025)
+@@ -0,0 +1,12 @@
++package ru.dinz.study.sort;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++
++public interface QuickSort {
++    void execute(Input input, Memory mem);
++
++    static void name() {
++        System.out.println("QuickSort");
++    }
++}
+Index: src/main/java/ru/dinz/study/sort/InsertionSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/InsertionSort.java b/src/main/java/ru/dinz/study/sort/InsertionSort.java
+new file mode 100644
+--- /dev/null	(date 1646997201972)
++++ b/src/main/java/ru/dinz/study/sort/InsertionSort.java	(date 1646997201972)
+@@ -0,0 +1,12 @@
++package ru.dinz.study.sort;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++
++public interface InsertionSort {
++    void execute(Input input, Memory mem);
++
++    static void name() {
++        System.out.println("InsertionSort");
++    }
++}
+Index: src/main/java/ru/dinz/study/factory/SortFactory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/factory/SortFactory.java b/src/main/java/ru/dinz/study/factory/SortFactory.java
+new file mode 100644
+--- /dev/null	(date 1646994899579)
++++ b/src/main/java/ru/dinz/study/factory/SortFactory.java	(date 1646994899579)
+@@ -0,0 +1,18 @@
++package ru.dinz.study.factory;
++
++import ru.dinz.study.sort.BubbleSort;
++import ru.dinz.study.sort.InsertionSort;
++import ru.dinz.study.sort.MergeSort;
++import ru.dinz.study.sort.QuickSort;
++
++public abstract class SortFactory {
++    public abstract BubbleSort createBubbleSort();
++
++    public abstract InsertionSort createInsertionSort();
++
++    public abstract MergeSort createMergeSort();
++
++    public abstract QuickSort createQuickSort();
++
++    public abstract String getName();
++}
+Index: src/main/java/ru/dinz/ConsoleInput.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.dinz;\r\n\r\nimport java.util.Scanner;\r\n\r\npublic class ConsoleInput implements Input {\r\n    private Scanner scanner = new Scanner(System.in);\r\n\r\n    @Override\r\n    public String askStr(String question) {\r\n        System.out.print(question);\r\n        return scanner.nextLine();\r\n    }\r\n\r\n    @Override\r\n    public int askInt(String question) {\r\n        return Integer.parseInt(askStr(question));\r\n    }\r\n\r\n    @Override\r\n    public double askDouble(String question, Memory memory) {\r\n        return Double.parseDouble(askStr(question));\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/ConsoleInput.java b/src/main/java/ru/dinz/ConsoleInput.java
+--- a/src/main/java/ru/dinz/ConsoleInput.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ b/src/main/java/ru/dinz/ConsoleInput.java	(date 1646930581324)
+@@ -15,9 +15,4 @@
+     public int askInt(String question) {
+         return Integer.parseInt(askStr(question));
+     }
+-
+-    @Override
+-    public double askDouble(String question, Memory memory) {
+-        return Double.parseDouble(askStr(question));
+-    }
+ }
+\ No newline at end of file
+Index: src/main/java/ru/dinz/Input.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.dinz;\r\n\r\npublic interface Input {\r\n    String askStr(String question);\r\n\r\n    int askInt(String question);\r\n\r\n    double askDouble(String question, Memory memory);\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/Input.java b/src/main/java/ru/dinz/Input.java
+--- a/src/main/java/ru/dinz/Input.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ b/src/main/java/ru/dinz/Input.java	(date 1646921364948)
+@@ -4,6 +4,4 @@
+     String askStr(String question);
+ 
+     int askInt(String question);
+-
+-    double askDouble(String question, Memory memory);
+ }
+\ No newline at end of file
+Index: src/main/java/ru/dinz/study/sort/line/LineBubbleSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/line/LineBubbleSort.java b/src/main/java/ru/dinz/study/sort/line/LineBubbleSort.java
+new file mode 100644
+--- /dev/null	(date 1647552944843)
++++ b/src/main/java/ru/dinz/study/sort/line/LineBubbleSort.java	(date 1647552944843)
+@@ -0,0 +1,25 @@
++package ru.dinz.study.sort.line;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++import ru.dinz.study.sort.BubbleSort;
++
++import java.util.List;
++
++public class LineBubbleSort extends BubbleSort {
++
++    @Override
++    public void execute(Input input, Memory mem) {
++        List<List<Integer>> lists = mem.getList();
++        for (List<Integer> list : lists) {
++            int[] array = new int[lists.get(0).size()];
++            for (int j = 0; j < lists.get(0).size(); j++) {
++                array[j] = list.get(j);
++            }
++            bubbleSort(array);
++            for (int j = 0; j < lists.get(0).size(); j++) {
++                list.set(j, array[j]);
++            }
++        }
++    }
++}
+Index: src/main/java/ru/dinz/study/Program.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/Program.java b/src/main/java/ru/dinz/study/Program.java
+new file mode 100644
+--- /dev/null	(date 1647552311529)
++++ b/src/main/java/ru/dinz/study/Program.java	(date 1647552311529)
+@@ -0,0 +1,135 @@
++package ru.dinz.study;
++
++import ru.dinz.*;
++import ru.dinz.study.factory.ColumnSortFactory;
++import ru.dinz.study.factory.LineSortFactory;
++import ru.dinz.study.factory.SortFactory;
++
++import java.util.ArrayList;
++import java.util.List;
++
++public class Program {
++
++    private Output out;
++
++    public Program() {
++        this.out = new ConsoleOutput();
++    }
++
++    public Program(Output out) {
++        this.out = out;
++    }
++
++    public void init(Input input, Memory mem, List<SortFactory> listAction) {
++        boolean run = true;
++        mem.init(initArrayGenerate(input));
++        while (run) {
++            out.println("0. Удалить и создать новый масив.");
++            out.println("1. Оставить.");
++            int select = input.askInt("Выбор: ");
++            while (select < 0 || select >= 2) {
++                out.println("Ввод должен быть в диапазоне: 0 .. " + (1));
++                select = input.askInt("Выбор: ");
++            }
++            if (select == 0) {
++                mem.init(initArrayGenerate(input));
++            }
++            this.showMenu(listAction);
++            select = input.askInt("Выбор: ");
++            while (select < 0 || select >= listAction.size()) {
++                out.println("Ввод должен быть в диапазоне: 0 .. " + (listAction.size() - 1));
++                select = input.askInt("Выбор: ");
++            }
++            SortFactory factories = listAction.get(select);
++            for (Sort s : Sort.values()) {
++                out.println(s.getNum() + ". " + s.getName());
++            }
++            select = input.askInt("Выбор: ");
++            while (select < 0 || select >= Sort.values().length) {
++                out.println("Ввод должен быть в диапазоне: 0 .. " + (Sort.values().length - 1));
++                select = input.askInt("Выбор: ");
++            }
++            switch (Sort.values()[select]) {
++                case BUBBLE -> factories.createBubbleSort().execute(input, mem);
++                case INSERTION -> factories.createInsertionSort().execute(input, mem);
++                case MERGE -> factories.createMergeSort().execute(input, mem);
++                case QUICK -> factories.createQuickSort().execute(input, mem);
++                case EXIT -> run = false;
++            }
++            print(mem, input);
++        }
++    }
++
++    private void print(Memory memory, Input input) {
++        out.println("0. Вывести весь массив.");
++        out.println("1. Отдельный элемент.");
++        int select = input.askInt("Выбор: ");
++        while (select < 0 || select >= 2) {
++            out.println("Ввод должен быть в диапазоне: 0 .. " + (1));
++            select = input.askInt("Выбор: ");
++        }
++        List<List<Integer>> lists = memory.getList();
++        if (select == 0) {
++            for (List<Integer> list : lists) {
++                for (Integer num : list) {
++                    out.print(num + " ");
++                }
++                out.println("");
++            }
++        } else {
++            int line = input.askInt("Введите строку: ");
++            while (line < 0 || line >= lists.get(0).size()) {
++                line = input.askInt("Введите строку в пределах массива: ");
++            }
++            int columns = input.askInt("Введите столбец: ");
++            while (columns < 0 || columns >= lists.size()) {
++                columns = input.askInt("Введите столбец в пределах массива: ");
++            }
++            out.println(lists.get(line).get(columns));
++        }
++    }
++
++    private void showMenu(List<SortFactory> listAction) {
++        out.println("Сортировка.");
++        for (int index = 0; index < listAction.size(); index++) {
++            out.println(index + ". " + listAction.get(index).getName());
++        }
++    }
++
++    private static List<List<Integer>> initArrayGenerate(Input input) {
++        int line = input.askInt("Введите line: ");
++        int column = input.askInt("Введите column: ");
++        int from = input.askInt("Введите диапазон чисел от: ");
++        int to = input.askInt("Введите до: ");
++        List<List<Integer>> arrayList = new ArrayList<>();
++        for (int i = 0; i < line; i++) {
++            arrayList.add(new ArrayList<>());
++        }
++        for (int i = 0; i < line; i++) {
++            List<Integer> list = arrayList.get(i);
++            for (int j = 0; j < column; j++) {
++                list.add(randomInt(from, to));
++            }
++        }
++        return arrayList;
++    }
++
++    private static int randomInt(int from, int to) {
++        return (int) (Math.random() * (to - from)) + from;
++    }
++
++    public static void main(String[] args) {
++        Input input = new ValidateInput(
++                new ConsoleOutput(),
++                new ConsoleInput()
++        );
++        Output output = new ConsoleOutput();
++        Memory memory = new ArrayMemory();
++        memory.init();
++        List<SortFactory> factories = List.of(
++                new LineSortFactory(output),
++                new ColumnSortFactory(output)
++        );
++        new Program().init(input, memory, factories);
++    }
++}
+Index: src/main/java/ru/dinz/ConsoleOutput.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.dinz;\r\n\r\npublic class ConsoleOutput implements Output {\r\n    @Override\r\n    public void println(Object obj) {\r\n        System.out.println(obj);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/ConsoleOutput.java b/src/main/java/ru/dinz/ConsoleOutput.java
+--- a/src/main/java/ru/dinz/ConsoleOutput.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ b/src/main/java/ru/dinz/ConsoleOutput.java	(date 1647015013374)
+@@ -5,4 +5,9 @@
+     public void println(Object obj) {
+         System.out.println(obj);
+     }
++
++    @Override
++    public void print(Object obj) {
++        System.out.print(obj);
++    }
+ }
+\ No newline at end of file
+Index: src/main/java/ru/dinz/study/sort/line/LineInsertionSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/line/LineInsertionSort.java b/src/main/java/ru/dinz/study/sort/line/LineInsertionSort.java
+new file mode 100644
+--- /dev/null	(date 1647552311520)
++++ b/src/main/java/ru/dinz/study/sort/line/LineInsertionSort.java	(date 1647552311520)
+@@ -0,0 +1,36 @@
++package ru.dinz.study.sort.line;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++import ru.dinz.study.sort.InsertionSort;
++
++import java.util.List;
++
++public class LineInsertionSort implements InsertionSort {
++    @Override
++    public void execute(Input input, Memory mem) {
++        List<List<Integer>> lists = mem.getList();
++        for (List<Integer> list : lists) {
++            int[] array = new int[lists.get(0).size()];
++            for (int j = 0; j < lists.get(0).size(); j++) {
++                array[j] = list.get(j);
++            }
++            insertionSort(array);
++            for (int j = 0; j < lists.get(0).size(); j++) {
++                list.set(j, array[j]);
++            }
++        }
++    }
++
++    public static void insertionSort(int[] array) {
++        for (int i = 1; i < array.length; i++) {
++            int current = array[i];
++            int j = i - 1;
++            while(j >= 0 && current < array[j]) {
++                array[j+1] = array[j];
++                j--;
++            }
++            array[j+1] = current;
++        }
++    }
++}
+Index: src/main/java/ru/dinz/study/sort/column/ColumnBubbleSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/column/ColumnBubbleSort.java b/src/main/java/ru/dinz/study/sort/column/ColumnBubbleSort.java
+new file mode 100644
+--- /dev/null	(date 1647552944830)
++++ b/src/main/java/ru/dinz/study/sort/column/ColumnBubbleSort.java	(date 1647552944830)
+@@ -0,0 +1,28 @@
++package ru.dinz.study.sort.column;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++import ru.dinz.study.sort.BubbleSort;
++import java.util.List;
++
++public class ColumnBubbleSort extends BubbleSort {
++
++    @Override
++    public void execute(Input input, Memory mem) {
++        List<List<Integer>> lists = mem.getList();
++        int[][] array = new int[lists.get(0).size()][lists.size()];
++        for (int i = 0; i < lists.get(0).size(); i++) {
++            for (int j = 0; j < lists.size(); j++) {
++                array[i][j] = lists.get(j).get(i);
++            }
++        }
++        for (int i = 0; i < array.length; i++) {
++            array[i] = bubbleSort(array[i]);
++        }
++        for (int i = 0; i < array.length; i++) {
++            for (int j = 0; j < array[0].length; j++) {
++                lists.get(j).set(i, array[i][j]);
++            }
++        }
++    }
++}
+Index: src/main/java/ru/dinz/study/sort/MergeSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/MergeSort.java b/src/main/java/ru/dinz/study/sort/MergeSort.java
+new file mode 100644
+--- /dev/null	(date 1646997201995)
++++ b/src/main/java/ru/dinz/study/sort/MergeSort.java	(date 1646997201995)
+@@ -0,0 +1,12 @@
++package ru.dinz.study.sort;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++
++public interface MergeSort {
++    void execute(Input input, Memory mem);
++
++    static void name() {
++        System.out.println("MergeSort");
++    }
++}
+Index: src/main/java/ru/dinz/study/sort/line/LineMergeSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/line/LineMergeSort.java b/src/main/java/ru/dinz/study/sort/line/LineMergeSort.java
+new file mode 100644
+--- /dev/null	(date 1647552311538)
++++ b/src/main/java/ru/dinz/study/sort/line/LineMergeSort.java	(date 1647552311538)
+@@ -0,0 +1,62 @@
++package ru.dinz.study.sort.line;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++import ru.dinz.study.sort.MergeSort;
++
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.List;
++import java.util.stream.Collectors;
++import java.util.stream.IntStream;
++
++public class LineMergeSort implements MergeSort {
++    @Override
++    public void execute(Input input, Memory mem) {
++        List<List<Integer>> lists = mem.getList();
++        for (int i = 0; i < lists.size(); i++) {
++            List<Integer> list = lists.get(i);
++            int[] array = new int[list.size()];
++            for (int j = 0; j < list.size(); j++) {
++                array[j] = list.get(j);
++            }
++            array = mergesort(array);
++            List<Integer> list1 = new ArrayList<>();
++            for (int k : array) {
++                list1.add(k);
++            }
++            lists.set(i, list1);
++        }
++    }
++
++    public static int[] mergesort(int[] array) {
++        int[] buffer1 = Arrays.copyOf(array, array.length);
++        int[] buffer2 = new int[array.length];
++        return mergesortInner(buffer1, buffer2, 0, array.length);
++    }
++
++    public static int[] mergesortInner(int[] buffer1, int[] buffer2,
++                                       int startIndex, int endIndex) {
++        if (startIndex >= endIndex - 1) {
++            return buffer1;
++        }
++        int middle = startIndex + (endIndex - startIndex) / 2;
++        int[] sorted1 = mergesortInner(buffer1, buffer2, startIndex, middle);
++        int[] sorted2 = mergesortInner(buffer1, buffer2, middle, endIndex);
++        int index1 = startIndex;
++        int index2 = middle;
++        int destIndex = startIndex;
++        int[] result = sorted1 == buffer1 ? buffer2 : buffer1;
++        while (index1 < middle && index2 < endIndex) {
++            result[destIndex++] = sorted1[index1] < sorted2[index2]
++                    ? sorted1[index1++] : sorted2[index2++];
++        }
++        while (index1 < middle) {
++            result[destIndex++] = sorted1[index1++];
++        }
++        while (index2 < endIndex) {
++            result[destIndex++] = sorted2[index2++];
++        }
++        return result;
++    }
++}
+Index: src/main/java/ru/dinz/study/sort/column/ColumnInsertionSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/column/ColumnInsertionSort.java b/src/main/java/ru/dinz/study/sort/column/ColumnInsertionSort.java
+new file mode 100644
+--- /dev/null	(date 1647552311509)
++++ b/src/main/java/ru/dinz/study/sort/column/ColumnInsertionSort.java	(date 1647552311509)
+@@ -0,0 +1,40 @@
++package ru.dinz.study.sort.column;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++import ru.dinz.study.sort.InsertionSort;
++import java.util.List;
++
++public class ColumnInsertionSort implements InsertionSort {
++    @Override
++    public void execute(Input input, Memory mem) {
++        List<List<Integer>> lists = mem.getList();
++        int[][] array = new int[lists.get(0).size()][lists.size()];
++        for (int i = 0; i < lists.get(0).size(); i++) {
++            for (int j = 0; j < lists.size(); j++) {
++                array[i][j] = lists.get(j).get(i);
++            }
++        }
++        for (int i = 0; i < array.length; i++) {
++            array[i] = insertionSort(array[i]);
++        }
++        for (int i = 0; i < array.length; i++) {
++            for (int j = 0; j < array[0].length; j++) {
++                lists.get(j).set(i, array[i][j]);
++            }
++        }
++    }
++
++    public static int[] insertionSort(int[] array) {
++        for (int i = 1; i < array.length; i++) {
++            int current = array[i];
++            int j = i - 1;
++            while(j >= 0 && current < array[j]) {
++                array[j+1] = array[j];
++                j--;
++            }
++            array[j+1] = current;
++        }
++        return array;
++    }
++}
+Index: src/main/java/ru/dinz/Output.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.dinz;\r\n\r\npublic interface Output {\r\n    void println(Object obj);\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/Output.java b/src/main/java/ru/dinz/Output.java
+--- a/src/main/java/ru/dinz/Output.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ b/src/main/java/ru/dinz/Output.java	(date 1647015013367)
+@@ -2,4 +2,6 @@
+ 
+ public interface Output {
+     void println(Object obj);
++
++    void print(Object obj);
+ }
+\ No newline at end of file
+Index: src/main/java/ru/dinz/ValidateInput.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.dinz;\r\n\r\npublic class ValidateInput implements Input {\r\n    private Output out;\r\n    private Input in;\r\n\r\n    public ValidateInput(Output out, Input input) {\r\n        this.out = out;\r\n        this.in = input;\r\n    }\r\n\r\n    public ValidateInput(ConsoleInput consoleInput) {\r\n        in = consoleInput;\r\n    }\r\n\r\n    @Override\r\n    public String askStr(String question) {\r\n        return in.askStr(question);\r\n    }\r\n\r\n    @Override\r\n    public int askInt(String question) {\r\n        boolean invalid = true;\r\n        int value = -1;\r\n        do {\r\n            try {\r\n                value = Integer.parseInt(in.askStr(question));\r\n                invalid = false;\r\n            } catch (NumberFormatException nfe) {\r\n                out.println(\"Введите число.\");\r\n            }\r\n        } while (invalid);\r\n        return value;\r\n    }\r\n\r\n    @Override\r\n    public double askDouble(String question, Memory memory) {\r\n        boolean invalid = true;\r\n        double value = -1;\r\n        do {\r\n            try {\r\n                String str = in.askStr(question);\r\n                String[] array = str.split(\"mem\");\r\n                if (array.length == 2) {\r\n                    int numCell = Integer.parseInt(array[1]);\r\n                    if (numCell <= 0 || numCell > memory.size()) {\r\n                        throw new NumberFormatException();\r\n                    }\r\n                    value = memory.get(numCell - 1);\r\n                } else {\r\n                    value = Double.parseDouble(str);\r\n                }\r\n                invalid = false;\r\n            } catch (NumberFormatException nfe) {\r\n                out.println(\"Введите число или ячейку памяти mem1 .. mem4.\");\r\n            }\r\n        } while (invalid);\r\n        return value;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/ValidateInput.java b/src/main/java/ru/dinz/ValidateInput.java
+--- a/src/main/java/ru/dinz/ValidateInput.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ b/src/main/java/ru/dinz/ValidateInput.java	(date 1646921364931)
+@@ -32,29 +32,4 @@
+         } while (invalid);
+         return value;
+     }
+-
+-    @Override
+-    public double askDouble(String question, Memory memory) {
+-        boolean invalid = true;
+-        double value = -1;
+-        do {
+-            try {
+-                String str = in.askStr(question);
+-                String[] array = str.split("mem");
+-                if (array.length == 2) {
+-                    int numCell = Integer.parseInt(array[1]);
+-                    if (numCell <= 0 || numCell > memory.size()) {
+-                        throw new NumberFormatException();
+-                    }
+-                    value = memory.get(numCell - 1);
+-                } else {
+-                    value = Double.parseDouble(str);
+-                }
+-                invalid = false;
+-            } catch (NumberFormatException nfe) {
+-                out.println("Введите число или ячейку памяти mem1 .. mem4.");
+-            }
+-        } while (invalid);
+-        return value;
+-    }
+ }
+Index: src/main/java/ru/dinz/study/sort/line/LineQuickSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/line/LineQuickSort.java b/src/main/java/ru/dinz/study/sort/line/LineQuickSort.java
+new file mode 100644
+--- /dev/null	(date 1647552311546)
++++ b/src/main/java/ru/dinz/study/sort/line/LineQuickSort.java	(date 1647552311546)
+@@ -0,0 +1,61 @@
++package ru.dinz.study.sort.line;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++import ru.dinz.study.sort.QuickSort;
++
++import java.util.ArrayList;
++import java.util.List;
++
++public class LineQuickSort implements QuickSort {
++    @Override
++    public void execute(Input input, Memory mem) {
++        List<List<Integer>> lists = mem.getList();
++        for (int i = 0; i < lists.size(); i++) {
++            List<Integer> list = lists.get(i);
++            int[] array = new int[list.size()];
++            for (int j = 0; j < list.size(); j++) {
++                array[j] = list.get(j);
++            }
++            quickSort(array, 0, array.length - 1);
++            List<Integer> list1 = new ArrayList<>();
++            for (int k : array) {
++                list1.add(k);
++            }
++            lists.set(i, list1);
++        }
++    }
++
++    public static void quickSort(int[] array, int low, int high) {
++        if (array.length == 0) {
++            return;
++        }
++        if (low >= high) {
++            return;
++        }
++        int middle = low + (high - low) / 2;
++        int opora = array[middle];
++        int i = low, j = high;
++        while (i <= j) {
++            while (array[i] < opora) {
++                i++;
++            }
++            while (array[j] > opora) {
++                j--;
++            }
++            if (i <= j) {
++                int temp = array[i];
++                array[i] = array[j];
++                array[j] = temp;
++                i++;
++                j--;
++            }
++        }
++        if (low < j) {
++            quickSort(array, low, j);
++        }
++        if (high > i) {
++            quickSort(array, i, high);
++        }
++    }
++}
+Index: calculator.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule=\"true\" type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"CheckStyle-IDEA-Module\">\r\n    <option name=\"configuration\">\r\n      <map />\r\n    </option>\r\n  </component>\r\n  <component name=\"NewModuleRootManager\" LANGUAGE_LEVEL=\"JDK_17\">\r\n    <output url=\"file://$MODULE_DIR$/target/classes\" />\r\n    <output-test url=\"file://$MODULE_DIR$/target/test-classes\" />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src/main/java\" isTestSource=\"false\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src/test/java\" isTestSource=\"true\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/target\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: junit:junit:4.12\" level=\"project\" />\r\n    <orderEntry type=\"library\" scope=\"TEST\" name=\"Maven: org.hamcrest:hamcrest-core:1.3\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/calculator.iml b/calculator.iml
+--- a/calculator.iml	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ b/calculator.iml	(date 1646908985712)
+@@ -10,7 +10,6 @@
+     <output-test url="file://$MODULE_DIR$/target/test-classes" />
+     <content url="file://$MODULE_DIR$">
+       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+-      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+       <excludeFolder url="file://$MODULE_DIR$/target" />
+     </content>
+     <orderEntry type="inheritedJdk" />
+Index: src/main/java/ru/dinz/study/sort/column/ColumnMergeSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/column/ColumnMergeSort.java b/src/main/java/ru/dinz/study/sort/column/ColumnMergeSort.java
+new file mode 100644
+--- /dev/null	(date 1647046007982)
++++ b/src/main/java/ru/dinz/study/sort/column/ColumnMergeSort.java	(date 1647046007982)
+@@ -0,0 +1,62 @@
++package ru.dinz.study.sort.column;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++import ru.dinz.study.sort.MergeSort;
++
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.List;
++
++public class ColumnMergeSort implements MergeSort {
++    @Override
++    public void execute(Input input, Memory mem) {
++        List<List<Integer>> lists = mem.getList();
++        int[][] array = new int[lists.get(0).size()][lists.size()];
++        for (int i = 0; i < lists.get(0).size(); i++) {
++            for (int j = 0; j < lists.size(); j++) {
++                array[i][j] = lists.get(j).get(i);
++            }
++        }
++        for (int i = 0; i < array.length; i++) {
++            array[i] = mergesort(array[i]);
++        }
++        for (int i = 0; i < array.length; i++) {
++            for (int j = 0; j < array[0].length; j++) {
++                lists.get(j).set(i, array[i][j]);
++            }
++        }
++    }
++
++    public static int[] mergesort(int[] array) {
++        int[] buffer1 = Arrays.copyOf(array, array.length);
++        int[] buffer2 = new int[array.length];
++        int[] result = mergesortInner(buffer1, buffer2, 0, array.length);
++        return result;
++    }
++
++    public static int[] mergesortInner(int[] buffer1, int[] buffer2,
++                                       int startIndex, int endIndex) {
++        if (startIndex >= endIndex - 1) {
++            return buffer1;
++        }
++        int middle = startIndex + (endIndex - startIndex) / 2;
++        int[] sorted1 = mergesortInner(buffer1, buffer2, startIndex, middle);
++        int[] sorted2 = mergesortInner(buffer1, buffer2, middle, endIndex);
++        int index1 = startIndex;
++        int index2 = middle;
++        int destIndex = startIndex;
++        int[] result = sorted1 == buffer1 ? buffer2 : buffer1;
++        while (index1 < middle && index2 < endIndex) {
++            result[destIndex++] = sorted1[index1] < sorted2[index2]
++                    ? sorted1[index1++] : sorted2[index2++];
++        }
++        while (index1 < middle) {
++            result[destIndex++] = sorted1[index1++];
++        }
++        while (index2 < endIndex) {
++            result[destIndex++] = sorted2[index2++];
++        }
++        return result;
++    }
++}
+Index: src/main/java/ru/dinz/study/factory/LineSortFactory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/factory/LineSortFactory.java b/src/main/java/ru/dinz/study/factory/LineSortFactory.java
+new file mode 100644
+--- /dev/null	(date 1647005315309)
++++ b/src/main/java/ru/dinz/study/factory/LineSortFactory.java	(date 1647005315309)
+@@ -0,0 +1,45 @@
++package ru.dinz.study.factory;
++
++import ru.dinz.Output;
++import ru.dinz.study.sort.BubbleSort;
++import ru.dinz.study.sort.InsertionSort;
++import ru.dinz.study.sort.MergeSort;
++import ru.dinz.study.sort.QuickSort;
++import ru.dinz.study.sort.line.LineBubbleSort;
++import ru.dinz.study.sort.line.LineInsertionSort;
++import ru.dinz.study.sort.line.LineMergeSort;
++import ru.dinz.study.sort.line.LineQuickSort;
++
++public class LineSortFactory extends SortFactory {
++
++    private Output out;
++
++    public LineSortFactory(Output out) {
++        this.out = out;
++    }
++
++    @Override
++    public BubbleSort createBubbleSort() {
++        return new LineBubbleSort();
++    }
++
++    @Override
++    public InsertionSort createInsertionSort() {
++        return new LineInsertionSort();
++    }
++
++    @Override
++    public MergeSort createMergeSort() {
++        return new LineMergeSort();
++    }
++
++    @Override
++    public QuickSort createQuickSort() {
++        return new LineQuickSort();
++    }
++
++    @Override
++    public String getName() {
++        return "Сортировка по строкам.";
++    }
++}
+Index: src/main/java/ru/dinz/study/sort/column/ColumnQuickSort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/sort/column/ColumnQuickSort.java b/src/main/java/ru/dinz/study/sort/column/ColumnQuickSort.java
+new file mode 100644
+--- /dev/null	(date 1647552311554)
++++ b/src/main/java/ru/dinz/study/sort/column/ColumnQuickSort.java	(date 1647552311554)
+@@ -0,0 +1,58 @@
++package ru.dinz.study.sort.column;
++
++import ru.dinz.Input;
++import ru.dinz.Memory;
++import ru.dinz.study.sort.QuickSort;
++
++import java.util.Arrays;
++import java.util.List;
++
++public class ColumnQuickSort implements QuickSort {
++    @Override
++    public void execute(Input input, Memory mem) {
++        List<List<Integer>> lists = mem.getList();
++        int[][] array = new int[lists.get(0).size()][lists.size()];
++        for (int i = 0; i < lists.get(0).size(); i++) {
++            for (int j = 0; j < lists.size(); j++) {
++                array[i][j] = lists.get(j).get(i);
++            }
++        }
++        for (int[] ints : array) {
++            quickSort(ints, 0, ints.length - 1);
++        }
++        for (int i = 0; i < array.length; i++) {
++            for (int j = 0; j < array[0].length; j++) {
++                lists.get(j).set(i, array[i][j]);
++            }
++        }
++    }
++
++    public static void quickSort(int[] array, int low, int high) {
++        if (array.length == 0)
++            return;
++        if (low >= high)
++            return;
++        int middle = low + (high - low) / 2;
++        int opora = array[middle];
++        int i = low, j = high;
++        while (i <= j) {
++            while (array[i] < opora) {
++                i++;
++            }
++            while (array[j] > opora) {
++                j--;
++            }
++            if (i <= j) {
++                int temp = array[i];
++                array[i] = array[j];
++                array[j] = temp;
++                i++;
++                j--;
++            }
++        }
++        if (low < j)
++            quickSort(array, low, j);
++        if (high > i)
++            quickSort(array, i, high);
++    }
++}
+Index: src/main/java/ru/dinz/study/factory/ColumnSortFactory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/factory/ColumnSortFactory.java b/src/main/java/ru/dinz/study/factory/ColumnSortFactory.java
+new file mode 100644
+--- /dev/null	(date 1646996803537)
++++ b/src/main/java/ru/dinz/study/factory/ColumnSortFactory.java	(date 1646996803537)
+@@ -0,0 +1,45 @@
++package ru.dinz.study.factory;
++
++import ru.dinz.Output;
++import ru.dinz.study.sort.BubbleSort;
++import ru.dinz.study.sort.InsertionSort;
++import ru.dinz.study.sort.MergeSort;
++import ru.dinz.study.sort.QuickSort;
++import ru.dinz.study.sort.column.ColumnBubbleSort;
++import ru.dinz.study.sort.column.ColumnInsertionSort;
++import ru.dinz.study.sort.column.ColumnMergeSort;
++import ru.dinz.study.sort.column.ColumnQuickSort;
++
++public class ColumnSortFactory extends SortFactory {
++
++    private Output out;
++
++    public ColumnSortFactory(Output out) {
++        this.out = out;
++    }
++
++    @Override
++    public BubbleSort createBubbleSort() {
++        return new ColumnBubbleSort();
++    }
++
++    @Override
++    public InsertionSort createInsertionSort() {
++        return new ColumnInsertionSort();
++    }
++
++    @Override
++    public MergeSort createMergeSort() {
++        return new ColumnMergeSort();
++    }
++
++    @Override
++    public QuickSort createQuickSort() {
++        return new ColumnQuickSort();
++    }
++
++    @Override
++    public String getName() {
++        return "Сортировка по столбцам.";
++    }
++}
+Index: src/main/java/ru/dinz/Memory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.dinz;\r\n\r\npublic interface Memory {\r\n    void init();\r\n\r\n    boolean add(int pos, double el);\r\n\r\n    double get(int pos);\r\n\r\n    double size();\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/Memory.java b/src/main/java/ru/dinz/Memory.java
+--- a/src/main/java/ru/dinz/Memory.java	(revision c6b09556a49ecab610b5e0f4c60cbf5137c209d6)
++++ b/src/main/java/ru/dinz/Memory.java	(date 1647015013382)
+@@ -1,11 +1,12 @@
+ package ru.dinz;
+ 
++import java.util.List;
++
+ public interface Memory {
++
+     void init();
+ 
+-    boolean add(int pos, double el);
++    void init(List<List<Integer>> list);
+ 
+-    double get(int pos);
+-
+-    double size();
++    List<List<Integer>> getList();
+ }
+Index: src/main/java/ru/dinz/study/Sort.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/study/Sort.java b/src/main/java/ru/dinz/study/Sort.java
+new file mode 100644
+--- /dev/null	(date 1647027298450)
++++ b/src/main/java/ru/dinz/study/Sort.java	(date 1647027298450)
+@@ -0,0 +1,26 @@
++package ru.dinz.study;
++
++public enum Sort {
++
++    BUBBLE(0,"Сортировка пузырьком."),
++    INSERTION(1,"Сортировка вставками."),
++    MERGE(2,"Сортировка слиянием."),
++    QUICK(3,"Быстрая сортировка."),
++    EXIT(4, "Выход.");
++
++    private int num;
++    private String name;
++
++    Sort(int num, String name) {
++        this.num = num;
++        this.name = name;
++    }
++
++    public int getNum() {
++        return num;
++    }
++
++    public String getName() {
++        return name;
++    }
++}
+Index: src/main/java/ru/dinz/ArrayMemory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/dinz/ArrayMemory.java b/src/main/java/ru/dinz/ArrayMemory.java
+new file mode 100644
+--- /dev/null	(date 1647015013357)
++++ b/src/main/java/ru/dinz/ArrayMemory.java	(date 1647015013357)
+@@ -0,0 +1,24 @@
++package ru.dinz;
++
++import java.util.ArrayList;
++import java.util.List;
++
++public class ArrayMemory implements Memory {
++
++    private List<List<Integer>> list;
++
++    @Override
++    public void init() {
++        list = new ArrayList<>();
++    }
++
++    @Override
++    public void init(List<List<Integer>> list) {
++        this.list = list;
++    }
++
++    @Override
++    public List<List<Integer>> getList() {
++        return list;
++    }
++}

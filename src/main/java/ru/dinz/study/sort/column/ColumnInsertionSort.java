@@ -5,7 +5,7 @@ import ru.dinz.Memory;
 import ru.dinz.study.sort.InsertionSort;
 import java.util.List;
 
-public class ColumnInsertionSort implements InsertionSort {
+public class ColumnInsertionSort extends InsertionSort {
     @Override
     public void execute(Input input, Memory mem) {
         List<List<Integer>> lists = mem.getList();
@@ -23,18 +23,5 @@ public class ColumnInsertionSort implements InsertionSort {
                 lists.get(j).set(i, array[i][j]);
             }
         }
-    }
-
-    public static int[] insertionSort(int[] array) {
-        for (int i = 1; i < array.length; i++) {
-            int current = array[i];
-            int j = i - 1;
-            while(j >= 0 && current < array[j]) {
-                array[j+1] = array[j];
-                j--;
-            }
-            array[j+1] = current;
-        }
-        return array;
     }
 }
