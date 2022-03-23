@@ -13,4 +13,9 @@
       <module name="calculator" target="17" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="calculator" options="--add-exports java.base/jdk.internal.util=ALL-UNNAMED" />
+    </option>
+  </component>
 </project>

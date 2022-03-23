@@ -1,9 +1,9 @@
-package ru.dinz.study;
+package ru.dinz.sort.study;
 
-import ru.dinz.*;
-import ru.dinz.study.factory.ColumnSortFactory;
-import ru.dinz.study.factory.LineSortFactory;
-import ru.dinz.study.factory.SortFactory;
+import ru.dinz.sort.*;
+import ru.dinz.sort.study.factory.ColumnSortFactory;
+import ru.dinz.sort.study.factory.LineSortFactory;
+import ru.dinz.sort.study.factory.SortFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,11 +78,11 @@ public class Program {
             }
         } else {
             int line = input.askInt("Введите строку: ");
-            while (line < 0 || line >= lists.get(0).size()) {
+            while (line < 0 || line >= lists.size()) {
                 line = input.askInt("Введите строку в пределах массива: ");
             }
             int columns = input.askInt("Введите столбец: ");
-            while (columns < 0 || columns >= lists.size()) {
+            while (columns < 0 || columns >= lists.get(0).size()) {
                 columns = input.askInt("Введите столбец в пределах массива: ");
             }
             out.println(lists.get(line).get(columns));
@@ -98,9 +98,19 @@ public class Program {
 
     private static List<List<Integer>> initArrayGenerate(Input input) {
         int line = input.askInt("Введите line: ");
+        while (line <= 0) {
+            line = input.askInt("Введите line: ");
+        }
         int column = input.askInt("Введите column: ");
+        while (column <= 0) {
+            column = input.askInt("Введите column: ");
+        }
         int from = input.askInt("Введите диапазон чисел от: ");
         int to = input.askInt("Введите до: ");
+        while (from >= to) {
+            from = input.askInt("Введите диапазон чисел от: ");
+            to = input.askInt("Введите до: ");
+        }
         List<List<Integer>> arrayList = new ArrayList<>();
         for (int i = 0; i < line; i++) {
             arrayList.add(new ArrayList<>());
@@ -133,4 +143,3 @@ public class Program {
         new Program().init(input, memory, factories);
     }
 }
-//

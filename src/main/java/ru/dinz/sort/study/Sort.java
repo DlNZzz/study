@@ -1,4 +1,4 @@
-package ru.dinz.study;
+package ru.dinz.sort.study;
 
 public enum Sort {
 

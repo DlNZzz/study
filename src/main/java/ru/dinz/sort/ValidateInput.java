@@ -1,4 +1,4 @@
-package ru.dinz;
+package ru.dinz.sort;
 
 public class ValidateInput implements Input {
     private Output out;

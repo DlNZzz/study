@@ -1,21 +1,37 @@
-package ru.dinz.study.sort;
+package ru.dinz.sort.study.sort.column;
 
-import ru.dinz.Input;
-import ru.dinz.Memory;
+import ru.dinz.sort.Input;
+import ru.dinz.sort.Memory;
+import ru.dinz.sort.study.sort.MergeSort;
 
 import java.util.Arrays;
+import java.util.List;
 
-public abstract class MergeSort {
-    public abstract void execute(Input input, Memory mem);
-
-    static void name() {
-        System.out.println("MergeSort");
+public class ColumnMergeSort extends MergeSort {
+    @Override
+    public void execute(Input input, Memory mem) {
+        List<List<Integer>> lists = mem.getList();
+        int[][] array = new int[lists.get(0).size()][lists.size()];
+        for (int i = 0; i < lists.get(0).size(); i++) {
+            for (int j = 0; j < lists.size(); j++) {
+                array[i][j] = lists.get(j).get(i);
+            }
+        }
+        for (int i = 0; i < array.length; i++) {
+            array[i] = mergesort(array[i]);
+        }
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                lists.get(j).set(i, array[i][j]);
+            }
+        }
     }
 
     public static int[] mergesort(int[] array) {
         int[] buffer1 = Arrays.copyOf(array, array.length);
         int[] buffer2 = new int[array.length];
-        return mergesortInner(buffer1, buffer2, 0, array.length);
+        int[] result = mergesortInner(buffer1, buffer2, 0, array.length);
+        return result;
     }
 
     public static int[] mergesortInner(int[] buffer1, int[] buffer2,

@@ -1,14 +1,14 @@
-package ru.dinz.study.factory;
+package ru.dinz.sort.study.factory;
 
-import ru.dinz.Output;
-import ru.dinz.study.sort.BubbleSort;
-import ru.dinz.study.sort.InsertionSort;
-import ru.dinz.study.sort.MergeSort;
-import ru.dinz.study.sort.QuickSort;
-import ru.dinz.study.sort.line.LineBubbleSort;
-import ru.dinz.study.sort.line.LineInsertionSort;
-import ru.dinz.study.sort.line.LineMergeSort;
-import ru.dinz.study.sort.line.LineQuickSort;
+import ru.dinz.sort.Output;
+import ru.dinz.sort.study.sort.BubbleSort;
+import ru.dinz.sort.study.sort.InsertionSort;
+import ru.dinz.sort.study.sort.MergeSort;
+import ru.dinz.sort.study.sort.QuickSort;
+import ru.dinz.sort.study.sort.line.LineBubbleSort;
+import ru.dinz.sort.study.sort.line.LineInsertionSort;
+import ru.dinz.sort.study.sort.line.LineMergeSort;
+import ru.dinz.sort.study.sort.line.LineQuickSort;
 
 public class LineSortFactory extends SortFactory {
 

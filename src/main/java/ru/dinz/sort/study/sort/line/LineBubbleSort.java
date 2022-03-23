@@ -1,12 +1,13 @@
-package ru.dinz.study.sort.line;
+package ru.dinz.sort.study.sort.line;
 
-import ru.dinz.Input;
-import ru.dinz.Memory;
-import ru.dinz.study.sort.InsertionSort;
+import ru.dinz.sort.Input;
+import ru.dinz.sort.Memory;
+import ru.dinz.sort.study.sort.BubbleSort;
 
 import java.util.List;
 
-public class LineInsertionSort extends InsertionSort {
+public class LineBubbleSort extends BubbleSort {
+
     @Override
     public void execute(Input input, Memory mem) {
         List<List<Integer>> lists = mem.getList();
@@ -15,7 +16,7 @@ public class LineInsertionSort extends InsertionSort {
             for (int j = 0; j < lists.get(0).size(); j++) {
                 array[j] = list.get(j);
             }
-            insertionSort(array);
+            bubbleSort(array);
             for (int j = 0; j < lists.get(0).size(); j++) {
                 list.set(j, array[j]);
             }

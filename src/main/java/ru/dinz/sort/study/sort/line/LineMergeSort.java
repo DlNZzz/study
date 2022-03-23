@@ -1,13 +1,13 @@
-package ru.dinz.study.sort.line;
+package ru.dinz.sort.study.sort.line;
 
-import ru.dinz.Input;
-import ru.dinz.Memory;
-import ru.dinz.study.sort.QuickSort;
+import ru.dinz.sort.Input;
+import ru.dinz.sort.Memory;
+import ru.dinz.sort.study.sort.MergeSort;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LineQuickSort extends QuickSort {
+public class LineMergeSort extends MergeSort {
     @Override
     public void execute(Input input, Memory mem) {
         List<List<Integer>> lists = mem.getList();
@@ -17,7 +17,7 @@ public class LineQuickSort extends QuickSort {
             for (int j = 0; j < list.size(); j++) {
                 array[j] = list.get(j);
             }
-            quickSort(array, 0, array.length - 1);
+            array = mergesort(array);
             List<Integer> list1 = new ArrayList<>();
             for (int k : array) {
                 list1.add(k);

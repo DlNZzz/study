@@ -1,10 +1,9 @@
-package ru.dinz.study.sort.column;
+package ru.dinz.sort.study.sort.column;
 
-import ru.dinz.Input;
-import ru.dinz.Memory;
-import ru.dinz.study.sort.QuickSort;
+import ru.dinz.sort.Input;
+import ru.dinz.sort.Memory;
+import ru.dinz.sort.study.sort.QuickSort;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ColumnQuickSort extends QuickSort {

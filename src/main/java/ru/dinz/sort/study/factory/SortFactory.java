@@ -1,9 +1,9 @@
-package ru.dinz.study.factory;
+package ru.dinz.sort.study.factory;
 
-import ru.dinz.study.sort.BubbleSort;
-import ru.dinz.study.sort.InsertionSort;
-import ru.dinz.study.sort.MergeSort;
-import ru.dinz.study.sort.QuickSort;
+import ru.dinz.sort.study.sort.BubbleSort;
+import ru.dinz.sort.study.sort.InsertionSort;
+import ru.dinz.sort.study.sort.MergeSort;
+import ru.dinz.sort.study.sort.QuickSort;
 
 public abstract class SortFactory {
     public abstract BubbleSort createBubbleSort();

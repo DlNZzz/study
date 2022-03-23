@@ -1,7 +1,7 @@
-package ru.dinz.study.sort;
+package ru.dinz.sort.study.sort;
 
-import ru.dinz.Input;
-import ru.dinz.Memory;
+import ru.dinz.sort.Input;
+import ru.dinz.sort.Memory;
 
 public abstract class InsertionSort {
     public abstract void execute(Input input, Memory mem);

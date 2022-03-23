@@ -1,4 +1,4 @@
-package ru.dinz;
+package ru.dinz.sort;
 
 import java.util.Scanner;
 
