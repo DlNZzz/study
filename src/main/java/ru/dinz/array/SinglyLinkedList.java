@@ -5,6 +5,7 @@ import java.util.*;
 public class SinglyLinkedList<T> implements List<T> {
 
     private Node<T> head;
+    //private Node<T> last;
     private int size;
 
     private final Comparator<? super T> comparator;
@@ -12,13 +13,14 @@ public class SinglyLinkedList<T> implements List<T> {
     public SinglyLinkedList(Comparator<? super T> comparator) {
         this.comparator = comparator;
     }
-
+    
     @Override
     public void add(T value) {
         size++;
         Node<T> newNode = new Node<>(value, null);
         if (head == null) {
             head = newNode;
+            //last = head;
             return;
         }
         Node<T> tail = head;
@@ -28,7 +30,7 @@ public class SinglyLinkedList<T> implements List<T> {
             return;
         }
         while (tail.next != null) {
-            if (comparator.compare(tail.value, value) > 0) {
+            if (comparator.compare(tail.next.value, value) > 0) {
                 Node<T> temp = tail.next;
                 tail.next = newNode;
                 newNode.next = temp;
@@ -37,6 +39,7 @@ public class SinglyLinkedList<T> implements List<T> {
             tail = tail.next;
         }
         tail.next = newNode;
+        //last = tail.next;
     }
 
     @Override
@@ -57,7 +60,7 @@ public class SinglyLinkedList<T> implements List<T> {
         return size;
     }
 
-    private void unlink(Node<T> prev, Node<T> x) {
+    private T unlink(Node<T> prev, Node<T> x) {
         final T element = x.value;
         final Node<T> next = x.next;
         if (prev == null) {
@@ -70,6 +73,7 @@ public class SinglyLinkedList<T> implements List<T> {
         }
         x.value = null;
         size--;
+        return element;
     }
 
     @Override
@@ -105,12 +109,40 @@ public class SinglyLinkedList<T> implements List<T> {
     }
 
     @Override
+    public boolean addAll(List<? extends T> c) {
+        for (T value : c) {
+            add(value);
+        }
+        return true;
+    }
+
+    @Override
     public List<T> subList(int from, int before) {
         Objects.checkIndex(before, size);
         List<T> list = new SinglyLinkedList<>(comparator);
         Objects.checkIndex(from, before);
         for (int i = from; i < before; i++) {
             list.add(remove(from));
+        }
+        return list;
+    }
+
+    @Override
+    public java.util.List<List<T>> division(int div) {
+        java.util.List<List<T>> list = new ArrayList<>();
+        int countList = (int) Math.ceil((double) size / div);
+        for (int i = 0; i < countList; i++) {
+            list.add(new SinglyLinkedList<T>(comparator));
+        }
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < list.size(); j++) {
+                for (int k = 0; k < div; k++) {
+                    if (size > 0) {
+                        list.get(j).add(get(0));
+                        remove(0);
+                    }
+                }
+            }
         }
         return list;
     }

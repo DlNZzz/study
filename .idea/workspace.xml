@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="calculator:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b25a64e-7e72-4892-8690-12baf836c9ee" name="Changes" comment="123">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/array/List.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/array/SinglyLinkedList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/array/StartUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/company/Accountant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/company/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/company/Engineer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/company/Programmer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/company/StartUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+    <list default="true" id="1b25a64e-7e72-4892-8690-12baf836c9ee" name="Changes" comment="singleLinkedKist">
+      <change afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/coding/Caesar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/coding/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/coding/PlayFair.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/coding/Vernama.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/coding/Vijiner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/coding/utils/CodeDecode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/coding/utils/InputLines.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/coding/utils/Mode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/dinz/queue/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/queue/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/dinz/queue/Queue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/queue/Heap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/dinz/array/List.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/array/List.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/dinz/array/SinglyLinkedList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/array/SinglyLinkedList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/dinz/array/StartUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/dinz/array/StartUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +33,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -46,6 +51,10 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$PROJECT_DIR$/../../Program Files/Java/jdk-17.0.2/lib/src.zip!/java.base/java/util/LinkedList.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../Program Files/Java/jdk-17.0.2/lib/src.zip!/java.base/java/util/List.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -70,15 +79,18 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../job4j_todo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
-  <component name="RunManager" selected="Application.StartUI (1)">
+  <component name="RunManager" selected="Application.Main (1)">
     <configuration name="M" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.dinz.queue.M" />
       <module name="calculator" />
@@ -92,12 +104,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ru.dinz.queue.Main" />
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.dinz.coding.Main" />
       <module name="calculator" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.dinz.queue.*" />
+          <option name="PATTERN" value="ru.dinz.coding.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -105,12 +117,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Program" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ru.dinz.sort.study.Program" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.dinz.queue.Main" />
       <module name="calculator" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.dinz.sort.study.*" />
+          <option name="PATTERN" value="ru.dinz.queue.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -157,11 +169,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.StartUI (1)" />
         <item itemvalue="Application.StartUI" />
         <item itemvalue="Application.M" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Program" />
       </list>
     </recent_temporary>
   </component>
@@ -196,7 +208,11 @@
       <workItem from="1650042406785" duration="772000" />
       <workItem from="1650619620882" duration="7637000" />
       <workItem from="1650735291027" duration="16000" />
-      <workItem from="1651056241639" duration="7741000" />
+      <workItem from="1651056241639" duration="12750000" />
+      <workItem from="1651220383405" duration="9705000" />
+      <workItem from="1651252679659" duration="5216000" />
+      <workItem from="1651481398620" duration="183000" />
+      <workItem from="1651836165429" duration="6315000" />
     </task>
     <task id="LOCAL-00001" summary="80%">
       <created>1647553400888</created>
@@ -226,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648069765771</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="singleLinkedKist">
+      <created>1651076226461</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1651076226461</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,7 +269,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="80%" />
     <MESSAGE value="123" />
-    <option name="LAST_COMMIT_MESSAGE" value="123" />
+    <MESSAGE value="singleLinkedKist" />
+    <option name="LAST_COMMIT_MESSAGE" value="singleLinkedKist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -262,12 +286,26 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ru/dinz/array/SinglyLinkedList.java</url>
-          <line>42</line>
-          <properties class="ru.dinz.array.SinglyLinkedList" method="get">
+          <line>130</line>
+          <properties class="ru.dinz.array.SinglyLinkedList" method="division">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="6" />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/ru/dinz/array/SinglyLinkedList.java</url>
+          <line>17</line>
+          <properties class="ru.dinz.array.SinglyLinkedList" method="add">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ru/dinz/array/SinglyLinkedList.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

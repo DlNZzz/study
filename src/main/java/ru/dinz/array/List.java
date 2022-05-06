@@ -13,4 +13,9 @@ public interface List<T> extends Iterable<T> {
     List<T> subList(int fromIndex, int toIndex);
 
     T remove(int index);
+
+    boolean addAll(List<? extends T> c);
+
+    java.util.List<List<T>> division(int div);
 }
+
